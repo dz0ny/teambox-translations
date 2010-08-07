@@ -1,21 +1,23 @@
 
 namespace :translate do
 	
-	task :init do |t, args|
-		args.with_defaults(:repo => "git://github.com/teambox/teambox.git")
+	task :init do
 		system("bundle install")
 		system("script/generate tolk_migration")
 		Rake::Task['db:migrate'].invoke
-		system("git clone #{args.repo} teambox_temp")
-		Rake::Task['translate:pull'].invoke
 	end
-            
+	
+	task :clone do |t, args|
+		args.with_defaults(:repo => "git://github.com/teambox/teambox.git")
+		system("git clone #{args.repo} teambox_temp")
+	end
+	     
 	task :pull do |t, args|
 		args.with_defaults(:lang => "sl")
 		puts "Copying updated translations from repo"
 		system("cd teambox_temp && git pull")
 		system("cp -f teambox_temp/config/locales config/locales/en.yml")
-    	system("cp -f teambox_temp/config/locales config/locales/#{args.repo}.yml")
+    	system("cp -f teambox_temp/config/locales config/locales/#{args.lang}.yml")
     	system("rake tolk:sync")
 		system("rake tolk:import")
   	end
