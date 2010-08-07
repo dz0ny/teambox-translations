@@ -16,3 +16,5 @@ Updating to latest changes:
 
 1. Pull the translation you want to update using <code>rake translate:pull sl</code>  
 3. Run server <code>script/server</code> 
+
+If you want to start from beginig <code>rake translate:reset</code> 
