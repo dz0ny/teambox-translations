@@ -8,8 +8,8 @@ namespace :translate do
 		Rake::Task['db:migrate'].invoke
 		system("git clone #{args.repo} teambox_temp")
 		Rake::Task['translate:pull'].invoke
-		Rake::Task['tolk:sync'].invoke
-		Rake::Task['tolk:import'].invoke
+		system("rake tolk:sync")
+		system("rake tolk:import")
 	end
             
 	task :pull do
@@ -29,13 +29,13 @@ namespace :translate do
     	system("git clone #{args.repo} teambox_temp")
     	Rake::Task['translate:pull'].invoke
     	puts "Imporing english translation"
-    	Rake::Task['tolk:sync'].invoke
+    	system("rake tolk:sync")
     	puts "Synchronizig translations"
-		Rake::Task['tolk:import'].invoke
+		system("rake tolk:import")
   	end
   	
   	task :clean do
   		puts "Cleaning"
-    	system("rm -rf teambox_temp")
+    	system("rm -rf teambox_temp") 
   	end
 end
