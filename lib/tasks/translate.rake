@@ -16,8 +16,8 @@ namespace :translate do
 		args.with_defaults(:lang => "sl")
 		puts "Copying updated translations from repo"
 		system("cd teambox_temp && git pull")
-		system("cp -f teambox_temp/config/locales config/locales/en.yml")
-    	system("cp -f teambox_temp/config/locales config/locales/#{args.lang}.yml")
+		system("cp -f teambox_temp/config/locales/en.yml config/locales/en.yml")
+    	system("cp -f teambox_temp/config/locales/#{args.lang}.yml config/locales/#{args.lang}.yml")
     	system("rake tolk:sync")
 		system("rake tolk:import")
   	end
@@ -41,7 +41,7 @@ namespace :translate do
   	
   	task :clean do
   		puts "Cleaning"
-    	system("rm -rf teambox_temp") 
+    	system("rm -rf teambox_temp")  
     	system("rm -rf db/migrate") 
     	system("rm -f db/development.sqlite3")
     	system("rm -f db/schema.rb")
