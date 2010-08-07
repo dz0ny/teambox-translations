@@ -10,6 +10,7 @@ namespace :translate do
 	task :clone do |t, args|
 		args.with_defaults(:repo => "git://github.com/teambox/teambox.git")
 		system("git clone #{args.repo} teambox_temp")
+		system("cp -f teambox_temp/config/locales/en.yml config/locales/en.yml")
 	end
 	     
 	task :pull do |t, args|
