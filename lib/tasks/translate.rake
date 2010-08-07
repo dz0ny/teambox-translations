@@ -7,13 +7,13 @@ namespace :translate do
 		Rake::Task['db:migrate'].invoke
 	end
 	
-	task :clone do |t, args|
+	task :clone, :repo do |t, args|
 		args.with_defaults(:repo => "git://github.com/teambox/teambox.git")
 		system("git clone #{args.repo} teambox_temp")
 		system("cp -f teambox_temp/config/locales/en.yml config/locales/en.yml")
 	end
 	     
-	task :pull do |t, args|
+	task :pull, :lang do |t, args|
 		args.with_defaults(:lang => "sl")
 		puts "Copying updated translations from repo"
 		system("cd teambox_temp && git pull")
